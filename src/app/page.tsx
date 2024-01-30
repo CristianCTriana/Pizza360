@@ -157,7 +157,7 @@ export default function Home() {
                   }}
                   className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
                 >
-                  <Image className="w-40 h-40" src="" alt="" />
+                  <Image className="w-[95%] h-40" src="" alt="" />
                   <p className="w-full text-center text-[#1976d2]">{m.name}</p>
                 </div>
               );
