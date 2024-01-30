@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Menu from "@/components/Menu";
 import Footer from "@/components/footer";
 import { Button } from "@mui/material";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function Home() {
@@ -127,7 +128,7 @@ export default function Home() {
       case 6:
         return <Menu setMenu={setMenu} items={adiciones} />;
       default:
-        return (
+        /*return (
           <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
             {menuList.map((m, index) => {
               return (
@@ -140,6 +141,24 @@ export default function Home() {
                   >
                     {m.name}
                   </Button>
+                </div>
+              );
+            })}
+          </main>
+        );*/
+        return (
+          <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
+            {menuList.map((m, index) => {
+              return (
+                <div
+                  key={index}
+                  onClick={() => {
+                    setMenu(index + 1);
+                  }}
+                  className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
+                >
+                  <Image className="w-40 h-40" src="" alt="" />
+                  <p className="w-full text-center text-[#1976d2]">{m.name}</p>
                 </div>
               );
             })}
