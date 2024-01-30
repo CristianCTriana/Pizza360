@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import Image from "next/image";
 
-export default function Hamb({ setMenu: any }) {
+export default function Hamb({ setMenu }: { setMenu: any }) {
   const hambs = [
     {
       name: "Nombre",
