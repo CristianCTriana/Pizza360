@@ -2,170 +2,108 @@
 import Header from "@/components/Header";
 import Menu from "@/components/Menu";
 import Footer from "@/components/footer";
-import { Button } from "@mui/material";
+import { Button, Skeleton } from "@mui/material";
+import axios from "axios";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [menu, setMenu] = useState(0);
+  const [csvData, setCsvData] = useState();
 
-  const menuList = [
-    { img: "", name: "Menu 1" },
-    { img: "", name: "Menu 2" },
-    { img: "", name: "Menu 3" },
-    { img: "", name: "Menu 4" },
-    { img: "", name: "Menu 5" },
-    { img: "", name: "Menu 6" },
-  ];
+  useEffect(() => {
+    fetchCSVData();
+  }, []);
 
-  const hambs = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-    {
-      name: "Nombre",
-      description:
-        "Descripción ............................................................ ............................................................ ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-    {
-      name: "Nombre",
-      description:
-        "Descripción ............................................................ ............................................................ ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+  function translateStck(str: string) {
+    return str === "Sí";
+  }
 
-  const hd = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+  function fetchCSVData() {
+    const csvUrl =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTB3S_Ca7sp00BP6H8fCiPi1S3iwP5129mtQM7pZlBpsGbF7xJ2nI1N-PFjhD68v5n-Gyr--UJRYfp5/pub?output=csv"; // Replace with your Google Sheets CSV file URL
+    axios
+      .get(csvUrl)
+      .then((response) => {
+        const parsedCsvData = parseCSV(response.data);
+        setCsvData(parsedCsvData);
+      })
+      .catch((error) => {
+        console.error("Error fetching CSV data:", error);
+      });
+  }
 
-  const salchipapas = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+  function parseCSV(csvText: any) {
+    const rows = csvText.split(/\r?\n/); // Split CSV text into rows, handling '\r' characters
+    const rowsFil = rows
+      .filter((el: any) => {
+        if (el !== ",,,") return el;
+      })
+      .map((el: string) => {
+        return el.split(",");
+      })
+      .map((el: any) => {
+        if (el[1] === "") return el[0];
+        return el;
+      });
 
-  const platosEspeciales = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+    return formatData(rowsFil);
+  }
 
-  const bebidas = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+  function formatData(array: any) {
+    const data = [];
+    let aux = -1;
+    for (let i = 1; i < array.length; i++) {
+      if (typeof array[i] === "string") {
+        data.push({ type: array[i], products: [] });
+        aux++;
+      } else {
+        data[aux] = {
+          ...data[aux],
+          products: [
+            ...data[aux].products,
+            {
+              name: array[i][0],
+              description: array[i][1],
+              price: parseInt(array[i][2].split(".").join("")),
+              stock: translateStck(array[i][3]),
+            },
+          ],
+        };
+      }
+    }
 
-  const adiciones = [
-    {
-      name: "Nombre",
-      description:
-        "Descripción   ............................................................ ............................................................",
-      img: "",
-      cost: 0,
-    },
-  ];
+    console.log({ data });
+    return data;
+  }
 
   const getComponentMenu = () => {
-    switch (menu) {
-      case 1:
-        return <Menu setMenu={setMenu} items={hambs} />;
-      case 2:
-        return <Menu setMenu={setMenu} items={hd} />;
-      case 3:
-        return <Menu setMenu={setMenu} items={salchipapas} />;
-      case 4:
-        return <Menu setMenu={setMenu} items={platosEspeciales} />;
-      case 5:
-        return <Menu setMenu={setMenu} items={bebidas} />;
-      case 6:
-        return <Menu setMenu={setMenu} items={adiciones} />;
-      default:
-        /*return (
-          <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
-            {menuList.map((m, index) => {
-              return (
-                <div className="w-full text-center" key={index}>
-                  <Button
-                    onClick={() => {
-                      setMenu(index + 1);
-                    }}
-                    variant="outlined"
-                  >
-                    {m.name}
-                  </Button>
-                </div>
-              );
-            })}
-          </main>
-        );*/
-        return (
-          <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
-            {menuList.map((m, index) => {
-              return (
-                <div
-                  key={index}
-                  onClick={() => {
-                    setMenu(index + 1);
-                  }}
-                  className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
-                >
-                  <Image className="w-[95%] h-40" src="" alt="" />
-                  <p className="w-full text-center text-[#1976d2]">{m.name}</p>
-                </div>
-              );
-            })}
-          </main>
-        );
+    if (menu > 0) {
+      return <Menu setMenu={setMenu} items={csvData[menu - 1]} />;
     }
+
+    return (
+      <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
+        {csvData.map((m, index) => {
+          return (
+            <div
+              key={index}
+              onClick={() => {
+                setMenu(index + 1);
+              }}
+              className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
+            >
+              <Image className="w-[95%] h-40" src="" alt="" />
+              <p className="w-full text-center text-[#1976d2]">{m.type}</p>
+            </div>
+          );
+        })}
+      </main>
+    );
   };
+
+  if (!csvData)
+    return <Skeleton variant="rectangular" width={210} height={118} />;
 
   return (
     <div>
