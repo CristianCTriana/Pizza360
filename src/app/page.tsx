@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [menu, setMenu] = useState(0);
-  const [csvData, setCsvData] = useState();
+  const [csvData, setCsvData] = useState({});
 
   useEffect(() => {
     fetchCSVData();
