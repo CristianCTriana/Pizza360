@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [menu, setMenu] = useState(0);
-  const [csvData, setCsvData] = useState({});
+  const [csvData, setCsvData] = useState([]);
 
   useEffect(() => {
     fetchCSVData();
@@ -51,7 +51,7 @@ export default function Home() {
   }
 
   function formatData(array: any) {
-    const data = [];
+    const data: any = [];
     let aux = -1;
     for (let i = 1; i < array.length; i++) {
       if (typeof array[i] === "string") {
@@ -84,7 +84,7 @@ export default function Home() {
 
     return (
       <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
-        {csvData.map((m, index) => {
+        {csvData?.map((m: any, index: number) => {
           return (
             <div
               key={index}
