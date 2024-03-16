@@ -2,7 +2,8 @@
 import Header from "@/components/Header";
 import Menu from "@/components/Menu";
 import Footer from "@/components/footer";
-import Box from "@mui/material/Box";
+import { Fab } from "@mui/material";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import Image from "next/image";
@@ -44,7 +45,7 @@ export default function Home() {
         return el.split(",");
       })
       .map((el: any) => {
-        if (el[1] === "") return el[0];
+        if (el[3] === "") return el[0];
         return el;
       });
 
@@ -129,6 +130,24 @@ export default function Home() {
       <div>
         <Header />
       </div>
+      <a
+        href="https://api.whatsapp.com/send?phone=573177535468&text=%20Hola!%20Quiero%20solicitar%20un%20domicilio!"
+        target="_blank"
+      >
+        <Fab
+          color="primary"
+          aria-label="add"
+          style={{
+            position: "fixed",
+            right: 0,
+            bottom: 0,
+            marginRight: "1.5rem",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <WhatsAppIcon color="success" fontSize="large" />
+        </Fab>
+      </a>
       {getComponentMenu()}
       <div className="bottom-0 relative">
         <Footer />
