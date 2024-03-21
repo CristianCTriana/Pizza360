@@ -8,6 +8,7 @@ import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { ModeCommentSharp } from "@mui/icons-material";
 
 export default function Home() {
   const [menu, setMenu] = useState(0);
@@ -82,6 +83,8 @@ export default function Home() {
       return <Menu setMenu={setMenu} items={csvData[menu - 1]} />;
     }
 
+    const images:any = ["01_hamburguesa.jpg"]
+
     return (
       <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
         {csvData?.map((m: any, index: number) => {
@@ -93,7 +96,7 @@ export default function Home() {
               }}
               className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
             >
-              <Image className="w-[95%] h-40" src="" alt="" />
+              <Image className="w-[95%] h-40" src={images[index]} alt={images[index]} />
               <p className="w-full text-center text-[#1976d2]">{m.type}</p>
             </div>
           );
