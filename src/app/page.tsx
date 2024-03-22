@@ -83,10 +83,10 @@ export default function Home() {
       return <Menu setMenu={setMenu} items={csvData[menu - 1]} />;
     }
 
-    const images:any = ["01_hamburguesa.jpg"]
+    const images:any = ["01_hamburguesa.jpg",'02_wrap.jpg', '03_arroz.jpg','04_perro.jpg','05_pasta.jpg','06_platos_especiales.jpg','','08_pizza.jpg','09_acom.jpg','10_addons.jpg','11_cerveza.jpg','12_gaseosas.jpg','13_jugos.jpg']
 
     return (
-      <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
+      <main className="bg-[#f2f2f2] flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
         {csvData?.map((m: any, index: number) => {
           return (
             <div
@@ -94,10 +94,10 @@ export default function Home() {
               onClick={() => {
                 setMenu(index + 1);
               }}
-              className="w-2/5 border flex flex-wrap justify-center border-[#1976d2]"
+              className="w-2/5 border flex flex-wrap justify-center border-[#c7ff6e]"
             >
-              <Image className="w-[95%] h-40" src={images[index]} alt={images[index]} />
-              <p className="w-full text-center text-[#1976d2]">{m.type}</p>
+              <img className="object-contain w-[95%] h-40" src={images[index]} alt={images[index]} />
+              <p className="w-full text-center text-[#de800d] font-mono"><strong>{m.type}</strong></p>
             </div>
           );
         })}
@@ -139,13 +139,13 @@ export default function Home() {
       >
         <Fab
           color="primary"
-          aria-label="add"
           style={{
             position: "fixed",
             right: 0,
             bottom: 0,
             marginRight: "1.5rem",
             marginBottom: "1.5rem",
+            background: 'white'
           }}
         >
           <WhatsAppIcon color="success" fontSize="large" />
