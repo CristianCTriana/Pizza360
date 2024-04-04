@@ -50,9 +50,9 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
   }, []);
 
   return (
-    <div className="bg-[#f2f2f2] flex flex-wrap justify-center gap-4 mt-8 px-6">
+    <div className="bg-[#f2f2f2] flex flex-wrap justify-center gap-4 pt-[138px] px-6 pb-8">
       <Button
-        className="my-4 text-[#000] bg-[#c7ff6e]"
+        className="my-4 text-[#000] bg-[#c7ff6e] font-bold"
         variant="contained"
         onClick={() => {
           setMenu(0);
@@ -69,14 +69,18 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
             {itemParents?.map((i: any, index: any) => {
               return (
                 <div
-                  className="w-2/5 flex flex-wrap justify-center border border-[#c7ff6e] py-4"
+                  className={`w-full flex flex-wrap border justify-center py-4 ${
+                    i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+                  }`}
                   key={index}
                 >
-                  <Image className="h-40 w-40" src={""} alt="" />
+                  {i.img && <Image className="h-40 w-40" src={""} alt="" />}
                   <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
                     {i.name}
                   </h3>
-                  <p className="text-[#de800d] w-full text-center text-sm">{i.description}</p>
+                  <p className="text-black w-full text-center text-sm">
+                    {i.description}
+                  </p>
                   {i.stock ? (
                     <div className="text-[#00ff00] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
                       2
@@ -101,15 +105,23 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
             {types?.map((i: any, index: any) => {
               return (
                 <div
-                  className="w-2/5 flex flex-wrap justify-center border border-[#c7ff6e] py-4"
+                  className={`w-full flex flex-wrap border justify-center py-4 ${
+                    i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+                  }`}
                   key={index}
                 >
-                  <Image className="h-40 w-40" src={""} alt="" />
+                  {i.img && <Image className="h-40 w-40" src={""} alt="" />}{" "}
                   <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
                     {i.name}
                   </h3>
-                  <p className="text-[#de800d] w-full text-center text-sm">{i.description}</p>
-                  {!i.stock && (<div className="text-[#ff0000] flex place-self-center font-bold mt-4">Agotado</div>)}
+                  <p className="text-black w-full text-center text-sm">
+                    {i.description}
+                  </p>
+                  {!i.stock && (
+                    <div className="text-[#ff0000] flex place-self-center font-bold mt-4">
+                      Agotado
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -119,14 +131,18 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
       {data.map((i: any, index: any) => {
         return (
           <div
-            className="w-full flex flex-wrap justify-center border border-[#c7ff6e] py-4"
+            className={`w-full flex flex-wrap border justify-center py-4 ${
+              i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+            }`}
             key={index}
           >
-            <Image className="h-40 w-40" src={""} alt="" />
+            {i.img && <Image className="h-40 w-40" src={""} alt="" />}{" "}
             <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
               {i.name}
             </h3>
-            <p className="text-[#de800d] w-full text-center text-sm">{i.description}</p>
+            <p className="text-black w-full text-center text-sm">
+              {i.description}
+            </p>
             {i.stock ? (
               <div className="text-[#00ff00] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
                 2

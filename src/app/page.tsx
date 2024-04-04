@@ -6,9 +6,7 @@ import { Fab } from "@mui/material";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import Skeleton from "@mui/material/Skeleton";
 import axios from "axios";
-import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ModeCommentSharp } from "@mui/icons-material";
 
 export default function Home() {
   const [menu, setMenu] = useState(0);
@@ -83,10 +81,24 @@ export default function Home() {
       return <Menu setMenu={setMenu} items={csvData[menu - 1]} />;
     }
 
-    const images:any = ["01_hamburguesa.jpg",'02_wrap.jpg', '03_arroz.jpg','04_perro.jpg','05_pasta.jpg','06_platos_especiales.jpg','','08_pizza.jpg','09_acom.jpg','10_addons.jpg','11_cerveza.jpg','12_gaseosas.jpg','13_jugos.jpg']
+    const images: any = [
+      "01_hamburguesa.jpg",
+      "02_wrap.jpg",
+      "03_arroz.jpg",
+      "04_perro.jpg",
+      "05_pasta.jpg",
+      "06_platos_especiales.jpg",
+      "07_salchipapas.jpeg",
+      "08_pizza.jpg",
+      "09_acom.jpg",
+      "10_addons.jpg",
+      "11_cerveza.jpg",
+      "12_gaseosas.jpg",
+      "13_jugos.jpg",
+    ];
 
     return (
-      <main className="bg-[#f2f2f2] flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
+      <main className="bg-[#f2f2f2] flex w-screen justify-center flex-wrap pb-4 pt-[128px] gap-6">
         {csvData?.map((m: any, index: number) => {
           return (
             <div
@@ -96,8 +108,14 @@ export default function Home() {
               }}
               className="w-2/5 border flex flex-wrap justify-center border-[#c7ff6e]"
             >
-              <img className="object-contain w-[95%] h-40" src={images[index]} alt={images[index]} />
-              <p className="w-full text-center text-[#de800d] font-mono"><strong>{m.type}</strong></p>
+              <img
+                className="object-contain w-[95%] h-40"
+                src={images[index]}
+                alt={images[index]}
+              />
+              <p className="w-full text-center text-[#de800d] font-mono">
+                <strong>{m.type}</strong>
+              </p>
             </div>
           );
         })}
@@ -130,29 +148,27 @@ export default function Home() {
   }
   return (
     <div>
-      <div>
-        <Header />
-      </div>
-      <a
-        href="https://api.whatsapp.com/send?phone=573177535468&text=%20Hola!%20Quiero%20solicitar%20un%20domicilio!"
-        target="_blank"
-      >
-        <Fab
-          color="primary"
-          style={{
-            position: "fixed",
-            right: 0,
-            bottom: 0,
-            marginRight: "1.5rem",
-            marginBottom: "1.5rem",
-            background: 'white'
-          }}
-        >
-          <WhatsAppIcon color="success" fontSize="large" />
-        </Fab>
-      </a>
+      <Header />
       {getComponentMenu()}
       <div className="bottom-0 relative">
+        <a
+          href="https://api.whatsapp.com/send?phone=573177535468&text=%20Hola!%20Quiero%20solicitar%20un%20domicilio!"
+          target="_blank"
+        >
+          <Fab
+            color="primary"
+            style={{
+              position: "fixed",
+              right: 0,
+              bottom: 0,
+              marginRight: "1.5rem",
+              marginBottom: "1.5rem",
+              background: "white",
+            }}
+          >
+            <WhatsAppIcon color="success" fontSize="large" />
+          </Fab>
+        </a>
         <Footer />
       </div>
     </div>
