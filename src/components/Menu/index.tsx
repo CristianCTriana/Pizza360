@@ -84,8 +84,8 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
             {itemParents?.map((i: any, index: any) => {
               return (
                 <div
-                  className={`w-full flex flex-wrap border justify-center py-4 px-4 ${
-                    i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+                  className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
+                    i.stock ? " border-black" : " border-[#ff0000]"
                   }`}
                   key={index}
                 >
@@ -120,8 +120,8 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
             {types?.map((i: any, index: any) => {
               return (
                 <div
-                  className={`w-full flex flex-wrap border justify-center py-4 px-4 ${
-                    i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+                  className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
+                    i.stock ? " border-black" : " border-[#ff0000]"
                   }`}
                   key={index}
                 >
@@ -146,8 +146,8 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
       {data.map((i: any, index: any) => {
         return (
           <div
-            className={`w-full flex flex-wrap border justify-center py-4 px-4 ${
-              i.stock ? " border-[#c7ff6e]" : " border-[#ff0000]"
+            className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
+              i.stock ? " border-black" : " border-[#ff0000]"
             }`}
             key={index}
           >
