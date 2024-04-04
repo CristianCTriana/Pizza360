@@ -1,7 +1,20 @@
-import { Button } from "@mui/material";
-import { constants } from "fs/promises";
+import { Button, ThemeProvider, createTheme } from "@mui/material";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: "#de800d",
+          },
+        },
+      },
+    },
+  },
+});
 
 export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
   const [itemParents, setItemParents] = useState([]);
@@ -51,15 +64,17 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
 
   return (
     <div className="bg-[#f2f2f2] flex flex-wrap justify-center gap-4 pt-[138px] px-6 pb-8">
-      <Button
-        className="my-4 text-[#000] bg-[#c7ff6e] font-bold"
-        variant="contained"
-        onClick={() => {
-          setMenu(0);
-        }}
-      >
-        Volver
-      </Button>
+      <ThemeProvider theme={theme}>
+        <Button
+          className="my-4 text-[#000] bg-[#c7ff6e] font-bold"
+          variant="contained"
+          onClick={() => {
+            setMenu(0);
+          }}
+        >
+          Volver
+        </Button>
+      </ThemeProvider>
       {itemParents.length > 0 && (
         <>
           <h2 className="text-[#de800d] w-full text-center text-3xl font-bold">

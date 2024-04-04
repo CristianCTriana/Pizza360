@@ -106,7 +106,7 @@ export default function Home() {
               onClick={() => {
                 setMenu(index + 1);
               }}
-              className="w-2/5 border flex flex-wrap justify-center border-[#c7ff6e]"
+              className="w-2/5 border flex flex-wrap justify-center border-[#c7ff6e] p-4"
             >
               <img
                 className="object-contain w-[95%] h-40"
