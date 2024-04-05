@@ -90,11 +90,12 @@ export default function Home() {
       "06_platos_especiales.jpg",
       "07_salchipapas.jpeg",
       "08_pizza.jpg",
-      "09_acom.jpg",
-      "10_addons.jpg",
-      "11_cerveza.jpg",
-      "12_gaseosas.jpg",
-      "13_jugos.jpg",
+      "09_panzerotti.jpeg",
+      "10_acom.jpg",
+      "11_addons.jpg",
+      "12_cerveza.jpg",
+      "13_gaseosas.jpg",
+      "14_jugos.jpg",
     ];
 
     return (
