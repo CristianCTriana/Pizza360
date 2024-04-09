@@ -82,7 +82,7 @@ export default function Home() {
     }
 
     const images: any = [
-      "01_hamburguesa.jpg",
+      "01_hamburguesa.jpeg",
       "02_wrap.jpg",
       "03_arroz.jpg",
       "04_perro.jpg",
@@ -110,8 +110,8 @@ export default function Home() {
               className="w-2/5 border flex flex-wrap justify-center border-black rounded-xl p-4"
             >
               <img
-                className="object-contain w-[95%] h-40 rounded-[99.999999%]"
-                src={images[index]}
+                className="w-40 h-40 rounded-full"
+                src={"assets/main_menu/" + images[index]}
                 alt={images[index]}
               />
               <p className="w-full text-center text-[#de800d] font-mono">

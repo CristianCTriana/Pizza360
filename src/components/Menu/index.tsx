@@ -1,6 +1,6 @@
-import { Button, ThemeProvider, createTheme } from "@mui/material";
-import Image from "next/image";
+import { Button, Fab, ThemeProvider, createTheme } from "@mui/material";
 import { useEffect, useState } from "react";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const theme = createTheme({
   components: {
@@ -8,7 +8,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           "&:hover": {
-            backgroundColor: "#de800d",
+            backgroundColor: "#ca750c",
           },
         },
       },
@@ -20,6 +20,7 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
   const [itemParents, setItemParents] = useState([]);
   const [types, setTypes] = useState([]);
   const [data, setData] = useState([]);
+  const [images, setImages] = useState<string[]>([]);
 
   function listItems() {
     const parentsList: any = items.products.filter((i: any) => {
@@ -58,50 +59,162 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
     }
   }
 
+  function getImages() {
+    console.log(items.type);
+    switch (items.type) {
+      case "Hamburguesas":
+        setImages([
+          "carne.jpeg",
+          "pollo.jpeg",
+          "doble carne.jpeg",
+          "mixta.jpeg",
+          "texana.jpeg",
+          "ranchera.jpeg",
+          "criolla.jpeg",
+          "hawaiana.jpeg",
+          "lomo.jpeg",
+          "mexicana.jpeg",
+          "costeña.jpeg",
+        ]);
+        break;
+      case "Wraps":
+        setImages(["carne.jpeg", "pollo.jpeg", "lomo.jpeg"]);
+        break;
+      case "Arroces":
+        setImages(["oriental.jpeg", "paisa.jpeg", "griego.jpeg"]);
+        break;
+      case "Perros":
+        setImages([
+          "especial.jpeg",
+          "mexicano.jpeg",
+          "hawaiano.jpeg",
+          "choriperro.jpeg",
+        ]);
+        break;
+      case "Pastas":
+        setImages(["lasagna.jpg", "lasagna.jpg", "pasta.jpg", "pasta.jpg"]);
+        break;
+      case "Platos Especiales":
+        setImages([
+          "churrasco.jpeg",
+          "sobrebarriga.jpeg",
+          "alitas.jpeg",
+          "costillas.jpeg",
+          "asada.jpeg",
+          "gratinada.jpeg",
+          "chuleta.jpeg",
+          "lomo.jpeg",
+          "mazorcada.jpeg",
+          "mazorcada.jpeg",
+          "patacon.jpeg",
+          "patacon.jpeg",
+        ]);
+        break;
+      case "Salchipapas":
+        setImages([
+          "salchipapa.jpeg",
+          "salchipapa.jpeg",
+          "salchipapa.jpeg",
+          "salchipapa2.jpeg",
+          "salchipapa2.jpeg",
+          "cheddar.jpeg",
+        ]);
+        break;
+      case "Pizzas":
+        const arr = [];
+        for (let i = 0; i < 20; i++) {
+          arr.push("pizzas.jpeg");
+        }
+        setImages(arr);
+        break;
+      case "Panzeroti":
+        const arr2 = [];
+        for (let i = 0; i < 4; i++) {
+          arr2.push("panzeroti.jpeg");
+        }
+        setImages(arr2);
+        break;
+      case "Acompañamientos":
+        setImages([
+          "papa.jpeg",
+          "aros.jpeg",
+          "yuca.jpeg",
+          "cascos.jpeg",
+          "espiral.jpeg",
+        ]);
+        break;
+      case "Jugos Naturales":
+        setImages([
+          "fresa.jpeg",
+          "guanabana.jpeg",
+          "lulo.jpeg",
+          "maracuya.jpeg",
+          "freijoa.jpeg",
+          "mora.jpeg",
+          "limonada.jpeg",
+        ]);
+        break;
+      case "Cervezas":
+        setImages([
+          "corona.jpg",
+          "heineken.jpg",
+          "artesanal.jpg",
+          "andina.jpg",
+          "sol.jpg",
+        ]);
+        break;
+      default:
+        break;
+    }
+  }
+
   useEffect(() => {
     listItems();
+    getImages();
   }, []);
 
   return (
     <div className="bg-[#f2f2f2] flex flex-wrap justify-center gap-4 pt-[138px] px-6 pb-8">
-      <ThemeProvider theme={theme}>
-        <Button
-          className="my-4 text-[#000] bg-[#c7ff6e] font-bold"
-          variant="contained"
-          onClick={() => {
-            setMenu(0);
-          }}
-        >
-          Volver
-        </Button>
-      </ThemeProvider>
       {itemParents.length > 0 && (
         <>
-          <h2 className="text-[#de800d] w-full text-center text-3xl font-bold">
-            {getTitles().title1}
-          </h2>
+          {getTitles().title1.length > 0 && (
+            <h2 className="text-[#ca750c] w-full text-center text-3xl font-bold">
+              {getTitles().title1}
+            </h2>
+          )}
           <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
             {itemParents?.map((i: any, index: any) => {
               return (
                 <div
                   className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
-                    i.stock ? " border-black" : " border-[#ff0000]"
+                    i.stock ? " border-black" : " border-[#dd0000]"
                   }`}
                   key={index}
                 >
-                  {i.img && <Image className="h-40 w-40" src={""} alt="" />}
-                  <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
+                  {items.type === "Acompañamientos" ||
+                    (items.type === "Cervezas" && (
+                      <img
+                        className="h-40 w-40 rounded-full"
+                        src={`assets/${items.type.toLowerCase()}/${
+                          images[index]
+                        }`}
+                        alt={`assets/${items.type.toLowerCase()}/${
+                          images[index]
+                        }`}
+                      />
+                    ))}
+                  <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
                     {i.name}
                   </h3>
                   <p className="text-black w-full text-center text-sm">
                     {i.description}
                   </p>
                   {i.stock ? (
-                    <div className="text-[#00ff00] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
+                    <div className="text-[#008100] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
                       2
                     )}`}</div>
                   ) : (
-                    <div className="text-[#ff0000] flex place-self-center font-bold mt-4">
+                    <div className="text-[#dd0000] flex place-self-center font-bold mt-4">
                       Agotado
                     </div>
                   )}
@@ -113,27 +226,45 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
       )}
       {types.length > 0 && (
         <>
-          <h2 className="text-[#de800d] w-full text-center text-3xl font-bold">
-            {getTitles().title2}
-          </h2>
+          {getTitles().title2.length > 0 && (
+            <h2 className="text-[#ca750c] w-full text-center text-3xl font-bold">
+              {getTitles().title2}
+            </h2>
+          )}
           <main className="flex w-screen justify-center flex-wrap pb-4 pt-4 gap-6">
             {types?.map((i: any, index: any) => {
               return (
                 <div
                   className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
-                    i.stock ? " border-black" : " border-[#ff0000]"
+                    i.stock ? " border-black" : " border-[#dd0000]"
                   }`}
                   key={index}
                 >
-                  {i.img && <Image className="h-40 w-40" src={""} alt="" />}{" "}
-                  <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
+                  {images.length > 0 && (
+                    <img
+                      className="h-40 w-40 rounded-full"
+                      src={`assets/${items.type.toLowerCase()}/${
+                        images[index]
+                      }`}
+                      alt={`assets/${items.type.toLowerCase()}/${
+                        images[index]
+                      }`}
+                    />
+                  )}
+                  <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
                     {i.name}
                   </h3>
                   <p className="text-black w-full text-center text-sm">
                     {i.description}
                   </p>
-                  {!i.stock && (
-                    <div className="text-[#ff0000] flex place-self-center font-bold mt-4">
+                  {i.stock ? (
+                    !i.price && (
+                      <div className="text-[#008100] flex place-self-center font-bold mt-4">
+                        Disponible
+                      </div>
+                    )
+                  ) : (
+                    <div className="text-[#dd0000] flex place-self-center font-bold mt-4">
                       Agotado
                     </div>
                   )}
@@ -147,29 +278,57 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
         return (
           <div
             className={`w-full flex flex-wrap border rounded-xl justify-center py-4 px-4 ${
-              i.stock ? " border-black" : " border-[#ff0000]"
+              i.stock ? " border-black" : " border-[#dd0000]"
             }`}
             key={index}
           >
-            {i.img && <Image className="h-40 w-40" src={""} alt="" />}{" "}
-            <h3 className="text-[#de800d] w-full text-center font-bold text-xl mt-4">
+            {images.length > 0 && (
+              <img
+                className="h-40 w-40 rounded-full"
+                src={
+                  items.type === "Pastas"
+                    ? `assets/${items.type.toLowerCase()}/${images[index + 2]}`
+                    : `assets/${items.type.toLowerCase()}/${images[index]}`
+                }
+                alt={`assets/${items.type.toLowerCase()}/${images[index]}`}
+              />
+            )}
+            <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
               {i.name}
             </h3>
             <p className="text-black w-full text-center text-sm">
               {i.description}
             </p>
             {i.stock ? (
-              <div className="text-[#00ff00] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
+              <div className="text-[#008100] flex place-self-center font-bold mt-4">{`$${i.price.toFixed(
                 2
               )}`}</div>
             ) : (
-              <div className="text-[#ff0000] flex place-self-center font-bold mt-4">
+              <div className="text-[#dd0000] flex place-self-center font-bold mt-4">
                 Agotado
               </div>
             )}
           </div>
         );
       })}
+      <div>
+        <Fab
+          onClick={() => {
+            setMenu(0);
+          }}
+          color="primary"
+          style={{
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            marginLeft: "1.5rem",
+            marginBottom: "1.5rem",
+            background: "white",
+          }}
+        >
+          <ArrowBackIcon color="success" fontSize="large" />
+        </Fab>
+      </div>
     </div>
   );
 }
