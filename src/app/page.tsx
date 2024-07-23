@@ -22,11 +22,13 @@ export default function Home() {
 
   function fetchCSVData() {
     const csvUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vTB3S_Ca7sp00BP6H8fCiPi1S3iwP5129mtQM7pZlBpsGbF7xJ2nI1N-PFjhD68v5n-Gyr--UJRYfp5/pub?output=csv"; // Replace with your Google Sheets CSV file URL
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-yibiLuuk0t175kK-vSdIkJvBLGftN38rWaonK4f9GO-f-rrvRayTM7sIn1uQ1NtYg1zKsu0rHzcF/pub?gid=0&single=true&output=csv";
+    //"https://docs.google.com/spreadsheets/d/e/2PACX-1vTB3S_Ca7sp00BP6H8fCiPi1S3iwP5129mtQM7pZlBpsGbF7xJ2nI1N-PFjhD68v5n-Gyr--UJRYfp5/pub?output=csv"; // Replace with your Google Sheets CSV file URL
     axios
       .get(csvUrl)
       .then((response) => {
         const parsedCsvData = parseCSV(response.data);
+        console.log(parsedCsvData);
         setCsvData(parsedCsvData);
       })
       .catch((error) => {
@@ -38,16 +40,15 @@ export default function Home() {
     const rows = csvText.split(/\r?\n/); // Split CSV text into rows, handling '\r' characters
     const rowsFil = rows
       .filter((el: any) => {
-        if (el !== ",,,") return el;
+        if (el !== ",,,,") return el;
       })
       .map((el: string) => {
         return el.split(",");
       })
       .map((el: any) => {
-        if (el[3] === "") return el[0];
+        if (el[3] === "") return [el[0], el[4]];
         return el;
       });
-
     return formatData(rowsFil);
   }
 
@@ -55,8 +56,12 @@ export default function Home() {
     const data: any = [];
     let aux = -1;
     for (let i = 1; i < array.length; i++) {
-      if (typeof array[i] === "string") {
-        data.push({ type: array[i], products: [] });
+      if (array[i].length === 2) {
+        data.push({
+          type: array[i][0],
+          products: [],
+          img: array[i][1].split("/")[5],
+        });
         aux++;
       } else {
         data[aux] = {
@@ -68,6 +73,7 @@ export default function Home() {
               description: array[i][1],
               price: parseInt(array[i][2].split(".").join("")),
               stock: translateStck(array[i][3]),
+              img: array[i][4].split("/")[5],
             },
           ],
         };
@@ -111,7 +117,12 @@ export default function Home() {
             >
               <img
                 className="w-40 h-40 rounded-full"
-                src={"assets/main_menu/" + images[index]}
+                //https://lh3.googleusercontent.com/d/ID
+                src={
+                  m.img?.length > 0
+                    ? "https://lh3.googleusercontent.com/d/" + m.img
+                    : "assets/Default_icon.jpg"
+                }
                 alt={images[index]}
               />
               <p className="w-full text-center text-[#de800d] font-mono">

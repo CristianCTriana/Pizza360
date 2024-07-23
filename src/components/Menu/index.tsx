@@ -60,7 +60,6 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
   }
 
   function getImages() {
-    console.log(items.type);
     switch (items.type) {
       case "Hamburguesas":
         setImages([
@@ -195,9 +194,11 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
                     (items.type === "Cervezas" && (
                       <img
                         className="h-40 w-40 rounded-full"
-                        src={`assets/${items.type.toLowerCase()}/${
-                          images[index]
-                        }`}
+                        src={
+                          i.img?.length > 0
+                            ? "https://lh3.googleusercontent.com/d/" + i.img
+                            : "assets/Default_icon.jpg"
+                        }
                         alt={`assets/${items.type.toLowerCase()}/${
                           images[index]
                         }`}
@@ -243,9 +244,11 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
                   {images.length > 0 && (
                     <img
                       className="h-40 w-40 rounded-full"
-                      src={`assets/${items.type.toLowerCase()}/${
-                        images[index]
-                      }`}
+                      src={
+                        i.img?.length > 0
+                          ? "https://lh3.googleusercontent.com/d/" + i.img
+                          : "assets/Default_icon.jpg"
+                      }
                       alt={`assets/${items.type.toLowerCase()}/${
                         images[index]
                       }`}
@@ -286,9 +289,9 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
               <img
                 className="h-40 w-40 rounded-full"
                 src={
-                  items.type === "Pastas"
-                    ? `assets/${items.type.toLowerCase()}/${images[index + 2]}`
-                    : `assets/${items.type.toLowerCase()}/${images[index]}`
+                  i.img?.length > 0
+                    ? "https://lh3.googleusercontent.com/d/" + i.img
+                    : "assets/Default_icon.jpg"
                 }
                 alt={`assets/${items.type.toLowerCase()}/${images[index]}`}
               />
