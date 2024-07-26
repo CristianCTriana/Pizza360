@@ -20,7 +20,6 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
   const [itemParents, setItemParents] = useState([]);
   const [types, setTypes] = useState([]);
   const [data, setData] = useState([]);
-  const [images, setImages] = useState<string[]>([]);
 
   function listItems() {
     const parentsList: any = items.products.filter((i: any) => {
@@ -59,7 +58,7 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
     }
   }
 
-  function getImages() {
+  /*function getImages() {
     switch (items.type) {
       case "Hamburguesas":
         setImages([
@@ -165,11 +164,10 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
       default:
         break;
     }
-  }
+  }*/
 
   useEffect(() => {
     listItems();
-    getImages();
   }, []);
 
   return (
@@ -190,8 +188,9 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
                   }`}
                   key={index}
                 >
-                  {items.type === "Acompañamientos" ||
-                    (items.type === "Cervezas" && (
+                  {items.type === "Acompañamientos" && (
+                    <>
+                      {console.log(items)}
                       <img
                         className="h-40 w-40 rounded-full"
                         src={
@@ -199,11 +198,24 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
                             ? "https://lh3.googleusercontent.com/d/" + i.img
                             : "assets/Default_icon.jpg"
                         }
-                        alt={`assets/${items.type.toLowerCase()}/${
-                          images[index]
-                        }`}
+                        alt={`assets/${items.type.toLowerCase()}/${i.img}`}
                       />
-                    ))}
+                    </>
+                  )}
+                  {items.type === "Cervezas" && (
+                    <>
+                      {console.log(items)}
+                      <img
+                        className="h-40 w-40 rounded-full"
+                        src={
+                          i.img?.length > 0
+                            ? "https://lh3.googleusercontent.com/d/" + i.img
+                            : "assets/Default_icon.jpg"
+                        }
+                        alt={`assets/${items.type.toLowerCase()}/${i.img}`}
+                      />
+                    </>
+                  )}
                   <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
                     {i.name}
                   </h3>
@@ -241,17 +253,17 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
                   }`}
                   key={index}
                 >
-                  {images.length > 0 && (
+                  {i.img ? (
                     <img
                       className="h-40 w-40 rounded-full"
-                      src={
-                        i.img?.length > 0
-                          ? "https://lh3.googleusercontent.com/d/" + i.img
-                          : "assets/Default_icon.jpg"
-                      }
-                      alt={`assets/${items.type.toLowerCase()}/${
-                        images[index]
-                      }`}
+                      src={"https://lh3.googleusercontent.com/d/" + i.img}
+                      alt={`assets/${items.type.toLowerCase()}/${i.img}`}
+                    />
+                  ) : (
+                    <img
+                      className="h-40 w-40 rounded-full"
+                      src={"assets/Default_icon.jpg"}
+                      alt={`assets/${items.type.toLowerCase()}/${i.img}`}
                     />
                   )}
                   <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
@@ -285,15 +297,17 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
             }`}
             key={index}
           >
-            {images.length > 0 && (
+            {i.img ? (
               <img
                 className="h-40 w-40 rounded-full"
-                src={
-                  i.img?.length > 0
-                    ? "https://lh3.googleusercontent.com/d/" + i.img
-                    : "assets/Default_icon.jpg"
-                }
-                alt={`assets/${items.type.toLowerCase()}/${images[index]}`}
+                src={"https://lh3.googleusercontent.com/d/" + i.img}
+                alt={`assets/${items.type.toLowerCase()}/${i.img}`}
+              />
+            ) : (
+              <img
+                className="h-40 w-40 rounded-full"
+                src={"assets/Default_icon.jpg"}
+                alt={`assets/${items.type.toLowerCase()}/${i.img}`}
               />
             )}
             <h3 className="text-[#ca750c] w-full text-center font-bold text-xl mt-4">
@@ -317,6 +331,8 @@ export default function Menu({ setMenu, items }: { setMenu: any; items: any }) {
       <div>
         <Fab
           onClick={() => {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
             setMenu(0);
           }}
           color="primary"

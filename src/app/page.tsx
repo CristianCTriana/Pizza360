@@ -22,8 +22,7 @@ export default function Home() {
 
   function fetchCSVData() {
     const csvUrl =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vS-yibiLuuk0t175kK-vSdIkJvBLGftN38rWaonK4f9GO-f-rrvRayTM7sIn1uQ1NtYg1zKsu0rHzcF/pub?gid=0&single=true&output=csv";
-    //"https://docs.google.com/spreadsheets/d/e/2PACX-1vTB3S_Ca7sp00BP6H8fCiPi1S3iwP5129mtQM7pZlBpsGbF7xJ2nI1N-PFjhD68v5n-Gyr--UJRYfp5/pub?output=csv"; // Replace with your Google Sheets CSV file URL
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vR79EbLdiBZe1a5W6uA0Xm66VvQu4ciYb6KDucjL2nNCx4mcdrpz0RKTH_WtGhESHMXINcV1Tr33X9P/pub?gid=0&single=true&output=csv";
     axios
       .get(csvUrl)
       .then((response) => {
@@ -87,23 +86,6 @@ export default function Home() {
       return <Menu setMenu={setMenu} items={csvData[menu - 1]} />;
     }
 
-    const images: any = [
-      "01_hamburguesa.jpeg",
-      "02_wrap.jpg",
-      "03_arroz.jpg",
-      "04_perro.jpg",
-      "05_pasta.jpg",
-      "06_platos_especiales.jpg",
-      "07_salchipapas.jpeg",
-      "08_pizza.jpg",
-      "09_panzerotti.jpeg",
-      "10_acom.jpg",
-      "11_addons.jpg",
-      "12_cerveza.jpg",
-      "13_gaseosas.jpg",
-      "14_jugos.jpg",
-    ];
-
     return (
       <main className="bg-[#f2f2f2] flex w-screen justify-center flex-wrap pb-4 pt-[128px] gap-6">
         {csvData?.map((m: any, index: number) => {
@@ -123,7 +105,7 @@ export default function Home() {
                     ? "https://lh3.googleusercontent.com/d/" + m.img
                     : "assets/Default_icon.jpg"
                 }
-                alt={images[index]}
+                alt={m.img}
               />
               <p className="w-full text-center text-[#de800d] font-mono">
                 <strong>{m.type}</strong>
