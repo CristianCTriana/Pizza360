@@ -9,13 +9,28 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        brand: {
+          orange: "#DA7A15",
+          green: "#C0F866",
+          bg: "#F8F9FA",
+          text: "#2B2B2B",
+        },
+      },
+      fontFamily: {
+        heading: ["Poppins", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+      },
+      boxShadow: {
+        soft: "0 4px 12px rgba(0,0,0,0.08)",
+      },
+      borderRadius: {
+        xl: "12px",
+        "2xl": "16px",
       },
     },
   },
   plugins: [],
 };
+
 export default config;
