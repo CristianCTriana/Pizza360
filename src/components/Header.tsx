@@ -1,10 +1,11 @@
 export default function Header() {
   return (
-    <div className="z-50 bg-[#de800d] flex w-screen justify-center flex-wrap pb-4 pt-4">
+    <div className="z-50 bg-brand-orange flex w-screen justify-center flex-wrap pb-4 pt-4">
       <img
         className="h-20 object-contain"
         src="assets/logo.png"
-        alt="logo"
+        alt=""
+        role="presentation"
       />
     </div>
   );
