@@ -290,15 +290,16 @@ export default function AdminPage() {
               placeholder="Correo Electrónico"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 text-gray-900 bg-white focus:ring-2 focus:ring-green-500 outline-none"
               required
             />
+
             <input
               type="password"
               placeholder="Contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border rounded p-2"
+              className="w-full border rounded p-2 text-gray-900 bg-white focus:ring-2 focus:ring-green-500 outline-none"
               required
             />
             {errorAuth && (
