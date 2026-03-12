@@ -65,6 +65,17 @@ export default function MenuPublico() {
     );
   });
 
+  // NUEVO: Agrupamos únicamente los platos que coinciden con la búsqueda
+  const resultadosAgrupados = productosFiltrados.reduce(
+    (acc, producto) => {
+      if (!acc[producto.categoria])
+        acc[producto.categoria] = [];
+      acc[producto.categoria].push(producto);
+      return acc;
+    },
+    {} as Record<string, Producto[]>,
+  );
+
   const menuAgrupado = productos.reduce(
     (acc, producto) => {
       if (!acc[producto.categoria])
@@ -98,6 +109,7 @@ export default function MenuPublico() {
             Pronto agregaremos platos deliciosos.
           </p>
         ) : busquedaActiva ? (
+          /* VISTA DE BÚSQUEDA EN TIEMPO REAL */
           <div className="p-4 md:p-6 animate-fade-in pb-8">
             <h2 className="text-2xl font-black text-gray-800 uppercase border-b-4 border-[#CCFF00] inline-block mb-6">
               Resultados para "{terminoBusqueda}"
@@ -109,14 +121,30 @@ export default function MenuPublico() {
                 ingredientes o nombre.
               </p>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Usamos el componente PlatoCard para los resultados de búsqueda */}
-                {productosFiltrados.map((plato) => (
-                  <PlatoCard
-                    key={plato.id}
-                    plato={plato}
-                  />
-                ))}
+              /* AQUI CAMBIAMOS LA VISTA: Iteramos sobre resultadosAgrupados */
+              <div className="flex flex-col gap-8">
+                {Object.entries(resultadosAgrupados).map(
+                  ([categoria, platos]) => (
+                    <div
+                      key={categoria}
+                      className="animate-fade-in">
+                      {/* Subtítulo de la categoría con un pequeño acento visual naranja */}
+                      <h3 className="text-xl font-bold text-gray-700 mb-4 uppercase tracking-wider flex items-center gap-2">
+                        <span className="w-2 h-6 bg-[#E8751A] rounded-full inline-block"></span>
+                        {categoria}
+                      </h3>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {platos.map((plato) => (
+                          <PlatoCard
+                            key={plato.id}
+                            plato={plato}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ),
+                )}
               </div>
             )}
           </div>
