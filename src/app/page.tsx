@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { db } from "@/lib/firebase";
 import { collection, getDocs } from "firebase/firestore";
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer";
 import Card from "@/components/Card";
 import PlatoCard from "@/components/PlatoCard"; // <-- Importamos el nuevo componente
 
