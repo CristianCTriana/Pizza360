@@ -1,10 +1,196 @@
 "use client";
+import Footer from "@/components/footer";
+import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [menu, setMenu] = useState();
+  const [item, setItem] = useState([
+    {
+      name: "name1",
+      cost: 10,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name2",
+      cost: 5,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name3",
+      cost: 3,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name4",
+      cost: 7,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name5",
+      cost: 1,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name1",
+      cost: 10,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name2",
+      cost: 5,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name3",
+      cost: 3,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name4",
+      cost: 7,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name5",
+      cost: 1,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name1",
+      cost: 10,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name2",
+      cost: 5,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name3",
+      cost: 3,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name4",
+      cost: 7,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name5",
+      cost: 1,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name1",
+      cost: 10,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name2",
+      cost: 5,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name3",
+      cost: 3,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name4",
+      cost: 7,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name5",
+      cost: 1,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name1",
+      cost: 10,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name2",
+      cost: 5,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name3",
+      cost: 3,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name4",
+      cost: 7,
+      img: "",
+      time: 0,
+      type: "",
+    },
+    {
+      name: "name5",
+      cost: 1,
+      img: "",
+      time: 0,
+      type: "",
+    },
+  ]);
 
   useEffect(() => {}, []);
 
-  return <div>Hola Pizza</div>;
+  return (
+    <div>
+      <Header />
+      {item?.map((i, index) => {
+        return <div key={index}>{i.name}</div>;
+      })}
+      <Footer />
+    </div>
+  );
 }
