@@ -1,4 +1,5 @@
 "use client";
+import Cuadro from "@/components/cuadroitem";
 import Footer from "@/components/footer";
 import Header from "@/components/Header";
 import { useEffect, useState } from "react";
@@ -8,21 +9,21 @@ export default function Home() {
     {
       name: "name1",
       cost: 10,
-      img: "",
+      img: "assets/hamburguesas/sinfondo.jpg",
       time: 0,
       type: "",
     },
     {
       name: "name2",
       cost: 5,
-      img: "",
+      img: "assets/hamburguesas/costeña.jpeg",
       time: 0,
       type: "",
     },
     {
       name: "name3",
       cost: 3,
-      img: "",
+      img: "assets/hamburguesas/lomo.jpeg",
       time: 0,
       type: "",
     },
@@ -188,7 +189,7 @@ export default function Home() {
     <div>
       <Header />
       {item?.map((i, index) => {
-        return <div key={index}>{i.name}</div>;
+        return <Cuadro cuadrito={i.img} key={index} />;
       })}
       <Footer />
     </div>
