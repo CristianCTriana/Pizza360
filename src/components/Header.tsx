@@ -1,12 +1,11 @@
 export default function Header() {
   return (
-    <div className="z-50 bg-brand-orange flex w-screen justify-center flex-wrap pb-4 pt-4">
+    <header className="bg-brand-bg shadow-sm py-6 px-4 text-center border-b-4 border-brand-green-600 mb-8">
       <img
-        className="h-20 object-contain"
         src="assets/logo.png"
-        alt=""
-        role="presentation"
+        alt="Logo del Restaurante"
+        className="h-24 mx-auto mb-4 object-contain"
       />
-    </div>
+    </header>
   );
 }
