@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import {
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { auth, db } from "@/lib/firebase";
 import {
@@ -29,6 +30,8 @@ export interface Producto {
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] =
     useState(false);
+  const [verificandoSesion, setVerificandoSesion] =
+    useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorAuth, setErrorAuth] = useState("");
@@ -116,7 +119,23 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
+    const desuscribir = onAuthStateChanged(
+      auth,
+      (usuario) => {
+        if (usuario) {
+          // Si hay usuario, lo dejamos pasar directamente
+          setIsAuthenticated(true);
+        } else {
+          // Si no hay, lo mandamos al login
+          setIsAuthenticated(false);
+        }
+        // Ya terminamos de verificar, podemos mostrar la pantalla final
+        setVerificandoSesion(false);
+      },
+    );
+
     if (isAuthenticated) obtenerProductos();
+    return () => desuscribir();
   }, [isAuthenticated]);
 
   // --- CREAR O ACTUALIZAR (SUBMIT) ---
@@ -269,6 +288,16 @@ export default function AdminPage() {
     setImagen(null);
     setModoNuevaCategoria(false);
   };
+
+  if (verificandoSesion) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <p className="text-xl font-bold text-orange-500 animate-pulse">
+          Verificando seguridad...
+        </p>
+      </div>
+    );
+  }
 
   if (!isAuthenticated) {
     return (

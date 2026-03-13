@@ -19,7 +19,7 @@ export default function PlatoCard({
         <h3 className="text-lg md:text-xl font-bold text-gray-800 leading-tight">
           {plato.nombre}
         </h3>
-        <p className="text-gray-500 text-xs md:text-sm mt-1 line-clamp-2">
+        <p className="text-gray-500 text-xs md:text-sm mt-1 whitespace-pre-wrap">
           {plato.descripcion}
         </p>
         <div className="flex justify-between items-end mt-2 md:mt-4">
