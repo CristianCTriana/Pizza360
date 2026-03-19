@@ -56,16 +56,46 @@ export default function MenuPublico() {
   }, []);
 
   useEffect(() => {
-    // Si hay una categoría activa (es decir, el usuario acaba de entrar a una)
     if (categoriaActiva) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth", // Hace que la subida sea fluida y elegante
-      });
+      // Le damos 100 milisegundos al navegador para que termine de dibujar las tarjetas
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
     }
   }, [categoriaActiva]);
 
+  useEffect(() => {
+    const manejarBotonAtras = () => {
+      // Si el usuario presiona "Atrás" en su celular, ocultamos los platos
+      setCategoriaActiva(null);
+    };
+
+    window.addEventListener("popstate", manejarBotonAtras);
+
+    // Limpieza del vigilante
+    return () =>
+      window.removeEventListener(
+        "popstate",
+        manejarBotonAtras,
+      );
+  }, []);
+
   const busquedaActiva = terminoBusqueda.trim().length > 0;
+
+  useEffect(() => {
+    if (busquedaActiva) {
+      // Le damos 100 milisegundos al navegador para que termine de dibujar las tarjetas
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }, 100);
+    }
+  }, [busquedaActiva]);
 
   const productosFiltrados = productos.filter((plato) => {
     const busqueda = terminoBusqueda.toLowerCase();
@@ -122,7 +152,7 @@ export default function MenuPublico() {
           /* VISTA DE BÚSQUEDA EN TIEMPO REAL */
           <div className="p-4 md:p-6 animate-fade-in pb-8">
             <h2 className="text-2xl font-black text-gray-800 uppercase border-b-4 border-[#CCFF00] inline-block mb-6">
-              Resultados para "{terminoBusqueda}"
+              {`Resultados para "${terminoBusqueda}"`}
             </h2>
 
             {productosFiltrados.length === 0 ? (
@@ -166,9 +196,14 @@ export default function MenuPublico() {
                   ([categoria, platos]) => (
                     <Card
                       key={categoria}
-                      onClick={() =>
-                        setCategoriaActiva(categoria)
-                      }
+                      onClick={() => {
+                        window.history.pushState(
+                          { vista: "platos" },
+                          "",
+                          "",
+                        );
+                        setCategoriaActiva(categoria);
+                      }}
                       imagenUrl={platos[0].imagenUrl}
                       categoria={categoria}
                     />
@@ -181,7 +216,7 @@ export default function MenuPublico() {
               <div className="p-4 md:p-6 animate-fade-in pb-8">
                 <div className="flex items-center mb-6 mt-2">
                   <button
-                    onClick={() => setCategoriaActiva(null)}
+                    onClick={() => window.history.back()}
                     className="text-[#E8751A] font-bold text-lg mr-4 hover:scale-110 transition-transform">
                     ◀ Volver
                   </button>
