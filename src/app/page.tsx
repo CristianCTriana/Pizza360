@@ -55,6 +55,16 @@ export default function MenuPublico() {
     obtenerMenu();
   }, []);
 
+  useEffect(() => {
+    // Si hay una categoría activa (es decir, el usuario acaba de entrar a una)
+    if (categoriaActiva) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth", // Hace que la subida sea fluida y elegante
+      });
+    }
+  }, [categoriaActiva]);
+
   const busquedaActiva = terminoBusqueda.trim().length > 0;
 
   const productosFiltrados = productos.filter((plato) => {
